@@ -3,7 +3,8 @@ name: Update README
 on:
   schedule:
     - cron: '0 * * * *'  # This line means the action will run every hour
-
+  workflow_dispatch:
+  
 jobs:
   update:
     runs-on: ubuntu-latest
