@@ -1,28 +1,22 @@
-name: 自动同步工作流程
+name: Update README
+
 on:
   schedule:
-    - cron: '5 8,20 * * *' 
-  workflow_dispatch:
-  #watch:
-  #  types: started
-  repository_dispatch:
-    types: sync-scripts
-jobs:
-  repo-sync:
-    env:
-      PAT: ${{ secrets.PAT || github.event.client_payload.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11
-    runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - cron: '0 * * * *'  # This line means the action will run every hour
 
-      - name: '运行 【自动同步工作流程】'
-        uses: repo-sync/github-sync@v2
-        if: env.PAT
-        with:
-          source_repo: "https://github.com/pppscn/SmsForwarder.git"
-          source_branch: "main" #按照被GIT的仓库分支名称修改
-          destination_branch: "master" #按照自己仓库分支名称修改
-          github_token: ${{ secrets.PAT || github.event.client_payload.PAT }}
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Update README
+        run: |
+          echo "SMS backup /r Last updated: $(date)" > README.md
+      - name: Commit and push if changed
+        run: |
+          git diff
+          git config --global user.email "pantong1995@126.com"
+          git config --global user.name "xiaotong1995"
+          git commit -am "Update README" || exit 0
+          git push
