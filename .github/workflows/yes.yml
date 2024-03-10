@@ -55,5 +55,5 @@ jobs:
             git config --global user.email "pantong1995@126.com"
             git config --global user.name "xiaotong1995"
             git commit -am "Update README" || exit 0
-            git push
+            git push origin main 
       needs: job1
