@@ -51,9 +51,8 @@ jobs:
             echo "SMS backup /r Last updated: $(date)" > README.md
         - name: Commit and push if changed
           run: |
-            git diff
             git config --global user.email "pantong1995@126.com"
             git config --global user.name "xiaotong1995"
             git commit -am "Update README" || exit 0
-            git push origin main 
+            git push origin main -f 
       needs: job1
