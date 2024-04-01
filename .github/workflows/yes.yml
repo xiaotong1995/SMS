@@ -38,7 +38,8 @@ jobs:
           git config --local user.email "pantong1995@126.com"
           git config --local user.name "xiaotong1995"
           git add .
-          git commit *.txt -m "Add generated file" --allow-empty   #      允许空提交
+          git commit *.txt -m "Add generated file" --allow-empty
+          
 #         git pull --rebase
           git push -f
   job2:
